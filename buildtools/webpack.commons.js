@@ -48,12 +48,25 @@ const iconRule = {
   }
 };
 
+const cesiumRegExp = /^Cesium\/.+$/;
+const slashReplacerRegExp = new RegExp('/', 'g');
+const extensionReplacerRegExp = new RegExp('\\.js$');
+
 const config = {
   context: path.resolve(__dirname, '../'),
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, '../dist/')
   },
+  externals: [
+    function(_, request, callback) {
+      if (cesiumRegExp.test(request)) {
+        const replacedWith = request.replace(extensionReplacerRegExp, '').replace(slashReplacerRegExp, '.');
+        return callback(null, replacedWith);
+      }
+      callback();
+    }
+  ],
   module: {
     rules: [
       olRule,

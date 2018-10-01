@@ -12,6 +12,8 @@ import olcsCore from './core.js';
 import olcsCoreVectorLayerCounterpart from './core/VectorLayerCounterpart.js';
 import olcsUtil, {getUid} from './util.js';
 
+import CesiumGeometryInstance from 'Cesium/GeometryInstance';
+
 class FeatureConverter {
   /**
    * Concrete base class for converting from OpenLayers3 vectors to Cesium
@@ -94,7 +96,7 @@ class FeatureConverter {
    */
   createColoredPrimitive(layer, feature, olGeometry, geometry, color, opt_lineWidth) {
     const createInstance = function(geometry, color) {
-      return new Cesium.GeometryInstance({
+      return new CesiumGeometryInstance({
         // always update Cesium externs before adding a property
         geometry,
         attributes: {
@@ -114,9 +116,6 @@ class FeatureConverter {
     };
 
     if (opt_lineWidth !== undefined) {
-      if (!options.renderState) {
-        options.renderState = {};
-      }
       options.renderState.lineWidth = opt_lineWidth;
     }
 

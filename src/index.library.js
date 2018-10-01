@@ -16,17 +16,17 @@ export default OLCesium;
 
 // Using var for phantomJS
 // eslint-disable-next-line no-var
-var olcs = window['olcs'] = {};
-olcs.OLCesium = OLCesium;
-
-olcs.AbstractSynchronizer = AbstractSynchronizer;
-olcs.RasterSynchronizer = RasterSynchronizer;
-olcs.VectorSynchronizer = VectorSynchronizer;
-
-olcs.core = core.default;
-olcs.core.OLImageryProvider = OLImageryProvider;
-olcs.core.VectorLayerCounterpart = VectorLayerCounterpart;
-
-olcs.contrib = {};
-olcs.contrib.LazyLoader = LazyLoader;
-olcs.contrib.Manager = Manager;
+window['olcs'] = {
+  OLCesium,
+  AbstractSynchronizer,
+  RasterSynchronizer,
+  VectorSynchronizer,
+  core: Object.assign({}, core.default, {
+    OLImageryProvider,
+    VectorLayerCounterpart
+  }),
+  contrib: {
+    LazyLoader,
+    Manager
+  }
+};

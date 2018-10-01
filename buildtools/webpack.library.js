@@ -1,6 +1,7 @@
 const path = require('path');
 
 const olRegExp = /^ol\/.+$/;
+const cesiumRegExp = /^Cesium\/.+$/;
 const slashReplacerRegExp = new RegExp('/', 'g');
 const extensionReplacerRegExp = new RegExp('\\.js$');
 
@@ -14,8 +15,8 @@ module.exports = {
     path: path.resolve(__dirname, '../dist/'),
   },
   externals: [
-    function(context, request, callback) {
-      if (olRegExp.test(request)) {
+    function(_, request, callback) {
+      if (olRegExp.test(request) || cesiumRegExp.test(request)) {
         const replacedWith = request.replace(extensionReplacerRegExp, '').replace(slashReplacerRegExp, '.');
         return callback(null, replacedWith);
       }
