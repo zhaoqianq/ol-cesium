@@ -134,6 +134,9 @@ class FeatureConverter {
         options.renderState = {};
       }
       options.renderState.lineWidth = opt_lineWidth;
+      if(olGeometry.getType() == 'Polygon' && opt_lineWidth>1){
+        options.renderState.lineWidth = 1;
+      }
     }
 
     const instances = createInstance(geometry, color);
